@@ -1,0 +1,178 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7fc;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+.container {
+    width: 100%;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    box-sizing: border-box; /* Include padding and borders in the element's width and height */
+}
+
+h1 {
+    color: #333;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 20px;
+}
+
+input[type="email"],
+input[type="text"],
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 5px;
+    box-sizing: border-box; /* Include padding and borders in the element's width and height */
+}
+
+input[type="email"]:hover,
+input[type="text"]:hover,
+select:hover {
+    border-color: #007bff;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+button:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f1f1f1;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Dashboard Header */
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    padding: 5px 30px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #ddd;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    justify-content: flex-end; /* Align items to the right */
+}
+
+#faculty-heading{
+    flex: 1;
+    text-align: left;
+}
+
+.logout-button {
+    padding: 10px 15px;
+    background-color: #218838;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    margin-left: 20px; /* Increase space between buttons */
+}
+
+.button2 {
+    margin-left: 20px; /* Adjust spacing */
+    width: auto; /* Let the buttons adjust their width based on content */
+}
+
+.logout-button:hover {
+    background: linear-gradient(135deg, #feb47b, #ff7e5f);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
+    transform: scale(1.05); /* Slight scaling on hover */
+}
+
+/* Flexbox for Faculty Section */
+#faculty-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 300px;
+    padding: 100px;
+}
+
+.details {
+    flex: 1;
+    text-align: left;
+}
+
+.photo {
+    flex: 0 0 200px;
+    text-align: right;
+}
+
+.photo img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .button2 {
+        margin-left: 10px;
+        width: auto;
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .logout-button {
+        margin: 5px 0; /* Stack buttons vertically with space between */
+    }
+
+    #faculty-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .photo {
+        text-align: center;
+        margin-top: 20px;
+    }
+}

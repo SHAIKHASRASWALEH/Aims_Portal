@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIMS Portal - Login</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #c5c5c7, #c3c3cc);
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      padding: 40px;
+      text-align: center;
+      width: 320px;
+    }
+
+    h1 {
+      font-size: 35px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 16px;
+      margin-bottom: 8px;
+      display: block;
+      color: #212121;
+    }
+
+    input[type="email"], input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    .otp-section {
+      display: none;
+      margin-top: 20px;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .arrow {
+      cursor: pointer;
+      display: inline-block;
+      margin-left: 10px;
+      transition: transform 0.2s ease;
+    }
+
+    .arrow:hover {
+      transform: scale(1.2);
+    }
+
+    .change-email-link {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #007bff;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .loading-message {
+      display: none;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #007bff;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>AIMS Portal</h1>
+    <div id="emailSection">
+      <label for="email">Your Email ID</label>
+      <input type="email" id="email" placeholder="Enter your email" required>
+      <br>
+      <button id="getOtpBtn">Get OTP <span class="arrow">&#8594;</span></button>
+      <div class="loading-message" id="loadingMessage">Sending OTP to your email...</div>
+    </div>
+
+    <div class="otp-section" id="otpSection">
+      <label for="otp">Enter OTP</label>
+      <input type="text" id="otp" placeholder="Enter OTP" required>
+      <br>
+      <button id="verifyOtpBtn">Verify OTP</button>
+      <div class="change-email-link" id="changeEmailLink">Change Email Address</div>
+    </div>
+  </div>
+
+  <script>
+    const getOtpBtn = document.getElementById("getOtpBtn");
+    const otpSection = document.getElementById("otpSection");
+    const otpInput = document.getElementById("otp");
+    const verifyOtpBtn = document.getElementById("verifyOtpBtn");
+    const emailInput = document.getElementById("email");
+    const emailSection = document.getElementById("emailSection");
+    const changeEmailLink = document.getElementById("changeEmailLink");
+    const loadingMessage = document.getElementById("loadingMessage");
+    const host = 'http://localhost:3000/api/v1/';
+
+    function preventBack(){
+      window.history.forward();
+    }
+    setTimeout("preventBack()", 0);
+    window.onunload=function(){null};
+
+    try{
+      fetch(`${host}auth/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      })
+      .then(response => response.json())
+        .then(data => {
+          if (data.message === 'User found') {
+            //alert("Logged in user found. Redirecting to dashboard.");
+            var id = data.id;
+            localStorage.setItem("id", id);
+            if (data.role === 'student') {
+              window.location.href = "student.html";
+            } else if (data.role === 'faculty') {
+              window.location.href = "faculty.html";
+            } else if (data.role === 'admin') {
+              window.location.href = "admin.html";
+            } else {
+              alert("Unknown role. Please try again.");
+            }
+          }});
+    }
+    catch(error){
+      //alert("No logged in user found.");
+      console.error("Error checking logged in user:", error);
+    }
+
+    getOtpBtn.addEventListener("click", function() {
+      const email = emailInput.value;
+
+      if (email) {
+        loadingMessage.style.display = "block"; // Show the loading message
+        //alert("Sending OTP to your email!");
+        fetch(`${host}auth/send-otp`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: email })
+        })
+        .then(response => response.json())
+        .then(data => {
+          loadingMessage.style.display = "none"; // Hide the loading message
+          if (data.message === 'OTP sent successfully') {
+            //alert("OTP sent to your email!");
+            otpSection.style.display = "block";
+            emailSection.style.display = "none";
+            getOtpBtn.style.cursor = "pointer";
+            getOtpBtn.disabled = true;
+          } else {
+            alert(data.message);
+          }
+        })
+        .catch(error => {
+          loadingMessage.style.display = "none"; // Hide the loading message
+          console.error("Error sending OTP:", error);
+          alert("An error occurred while sending OTP.");
+        });
+      } else {
+        alert("Please enter a valid email ID.");
+      }
+    });
+
+    verifyOtpBtn.addEventListener("click", function() {
+      const otp = otpInput.value;
+      const email = emailInput.value;
+
+      if (otp) {
+        // Clear the OTP input field
+        otpInput.value = '';
+
+        fetch(`${host}auth/verify-otp`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({ email: email, otp: otp })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.message === 'Logged in successfully') {
+            //alert("OTP Verified! You are logged in.");
+            var id = data.id;
+            localStorage.setItem("id", id);
+            if (data.role === 'student') {
+              window.location.href = "student.html";
+            } else if (data.role === 'faculty') {
+              window.location.href = "faculty.html";
+            } else if (data.role === 'admin') {
+              window.location.href = "admin.html";
+            } else {
+              alert("Unknown role. Please try again.");
+            }
+          } else {
+            alert(data.message);
+          }
+        })
+        .catch(error => {
+          console.error("Error verifying OTP:", error);
+          alert("An error occurred while verifying OTP.");
+        });
+      } else {
+        alert("Please enter OTP.");
+      }
+    });
+
+    changeEmailLink.addEventListener("click", function() {
+      otpSection.style.display = "none";
+      emailSection.style.display = "block";
+      getOtpBtn.disabled = false;
+    });
+  </script>
+
+</body>
+</html>

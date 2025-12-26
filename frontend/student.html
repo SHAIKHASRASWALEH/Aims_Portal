@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Student Dashboard</h1>
+        <button class="logout-button" id="logout-button"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </header>
+    
+    <main class="dashboard">
+        <!-- Student Details Section -->
+        <section class="section student-details">
+            <div class="details-container">
+                <div class="details">
+                    <h2><i class="fas fa-user-graduate"></i> Student Details</h2>
+                    <p><strong>Name:</strong> <span id="student-name"></span></p>
+                    <p><strong>Student ID:</strong> <span id="student-id"></span></p>
+                    <p><strong>Email:</strong> <span id="student-email"></span></p>
+                    <p><strong>Phone Number:</strong> <span id="student-phone"></span></p> <!-- New field -->
+                    <p><strong>Date of Birth:</strong> <span id="student-dob"></span></p> <!-- New field -->
+                    <p><strong>Address:</strong> <span id="student-address"></span></p> <!-- New field -->
+                    <p><strong>Year of Enrollment:</strong> <span id="student-year"></span></p>
+                    <p><strong>Department:</strong> <span id="student-department"></span></p>
+                    <p><strong>Degree:</strong> <span id="student-degree"></span></p> <!-- New field -->
+                </div>
+                <div class="student-image">
+                    <img src="IIT_Rpr_logo.jpg" alt="IIT Ropar Logo">
+                </div>
+            </div>
+        </section>
+        
+        <!-- Enrolled Courses Section -->
+        <section class="section enrolled-courses">
+            <h2 onclick="toggleSection('enrolled-courses-content')">
+                <i class="fas fa-book"></i> Enrolled Courses <i class="fas fa-chevron-down"></i>
+            </h2>
+            <div id="enrolled-courses-content" class="section-content">
+                <div class="search-bar">
+                    <input type="text" id="search-enrolled" placeholder="Search enrolled courses..." oninput="searchCourses('enrolled-courses', 'search-enrolled')">
+                    <i class="fas fa-search"></i>
+                </div>
+                <table class="courses-table">
+                    <thead>
+                        <tr>
+                            <th>Course Code</th>
+                            <th>Title</th>
+                            <th>Session</th>
+                            <th>Instructor</th>
+                            <th>Enrollment Status</th>
+                            <th>Credits</th>
+                        </tr>
+                    </thead>
+                    <tbody id="enrolled-courses">
+                        <!-- Enrolled courses will be dynamically populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <!-- Available Courses Section -->
+        <section class="section available-courses">
+            <h2 onclick="toggleSection('available-courses-content')">
+                <i class="fas fa-plus-circle"></i> Available Courses <i class="fas fa-chevron-down"></i>
+            </h2>
+            <div id="available-courses-content" class="section-content">
+                <div class="search-bar">
+                    <input type="text" id="search-available" placeholder="Search available courses..." oninput="searchCourses('available-courses', 'search-available')">
+                    <i class="fas fa-search"></i>
+                </div>
+                <table class="courses-table">
+                    <thead>
+                        <tr>
+                            <th>Course Code</th>
+                            <th>Title</th>
+                            <th>Session</th>
+                            <th>Instructor</th>
+                            <th>Status</th>
+                            <th>Credits</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="available-courses">
+                        <!-- Available courses will be dynamically populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    
+    <script src="student.js"></script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Admin Dashboard</h1>
+        <button class="logout-button" id="logout-button"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </header>
+    
+    <main class="dashboard">
+        <!-- Register Student Section -->
+        <section class="section register-student">
+            <h2 onclick="toggleSection('register-student-content')">
+                <i class="fas fa-user-plus"></i> Register Student <i class="fas fa-chevron-down"></i>
+            </h2>
+            <div id="register-student-content" class="section-content">
+                <form id="register-student-form">
+                    <div class="form-group">
+                        <label for="firstName">First Name:</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name:</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dateOfBirth">Date of Birth:</label>
+                        <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender:</label>
+                        <select id="gender" name="gender" required>
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
+                            <option value="O">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phoneNumber">Phone Number:</label>
+                        <input type="tel" id="phoneNumber" name="phoneNumber" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address:</label>
+                        <input type="text" id="address" name="address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rollNo">Roll No:</label>
+                        <input type="text" id="rollNo" name="rollNo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="department">Department:</label>
+                        <input type="text" id="department" name="department" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="degree">Degree:</label>
+                        <input type="text" id="degree" name="degree" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="yearOfEntry">Year of Entry:</label>
+                        <input type="number" id="yearOfEntry" name="yearOfEntry" required>
+                    </div>
+                    <button type="submit">Register Student</button>
+                </form>
+            </div>
+        </section>
+
+
+
+        <!-- Register Instructor Section -->
+        <section class="section register-instructor">
+            <h2 onclick="toggleSection('register-instructor-content')">
+                <i class="fas fa-chalkboard-teacher"></i> Register Instructor <i class="fas fa-chevron-down"></i>
+            </h2>
+            <div id="register-instructor-content" class="section-content">
+                <form id="register-instructor-form">
+                    <div class="form-group">
+                        <label for="firstName">First Name:</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name:</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phoneNumber">Phone Number:</label>
+                        <input type="tel" id="phoneNumber" name="phoneNumber" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="department">Department:</label>
+                        <input type="text" id="department" name="department" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="isAdvisor">Is Advisor:</label>
+                        <select id="isAdvisor" name="isAdvisor" required>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+                    <button type="submit">Register Instructor</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Register Course Section -->
+        <section class="section register-course">
+            <h2 onclick="toggleSection('register-course-content')">
+                <i class="fas fa-book"></i> Register Course <i class="fas fa-chevron-down"></i>
+            </h2>
+            <div id="register-course-content" class="section-content">
+                <form id="register-course-form">
+                    <div class="form-group">
+                        <label for="courseCode">Course Code:</label>
+                        <input type="text" id="courseCode" name="courseCode" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="courseTitle">Course Title:</label>
+                        <input type="text" id="courseTitle" name="courseTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="academicSession">Academic Session:</label>
+                        <input type="text" id="academicSession" name="academicSession" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="instructorId">Instructor:</label>
+                        <select id="instructorId" name="instructorId" required>
+                            <!-- Instructors will be dynamically populated here -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="offeringDepartment">Offering Department:</label>
+                        <input type="text" id="offeringDepartment" name="offeringDepartment" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Status:</label>
+                        <select id="status" name="status" required>
+                            <option value="Running">Running</option>
+                            <option value="Enrolling">Enrolling</option>
+                            <option value="Proposed">Proposed</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="credits">Credits:</label>
+                        <input type="number" step="0.5" id="credits" name="credits" required>
+                    </div>
+                    <button type="submit">Register Course</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Enroll Students Section -->
+        <section class="section enroll-students">
+            <h2 onclick="toggleSection('enroll-students-content')">
+                <i class="fas fa-user-check"></i> Enroll Students <i class="fas fa-chevron-down"></i>
+            </h2>
+            <div id="enroll-students-content" class="section-content">
+                <div class="search-bar">
+                    <input type="text" id="search-enrollments" placeholder="Search enrollments..." oninput="searchEnrollments()">
+                    <i class="fas fa-search"></i>
+                </div>
+                <table class="courses-table">
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Course Title</th>
+                            <th>Session</th>
+                            <th>Instructor</th>
+                            <th>Credits</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="enrollments-table">
+                        <!-- Enrollments will be dynamically populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    
+    <script src="admin.js"></script>
+</body>
+</html>
